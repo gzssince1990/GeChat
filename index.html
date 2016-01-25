@@ -5,31 +5,59 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font: 13px Helvetica, Arial; }
-        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        #input_form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        #input_form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+        #input_form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
         #messages { list-style-type: none; margin: 0; padding: 0; }
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
     </style>
 </head>
 <body>
-<ul id="messages"></ul>
-<form action="">
-    <input id="m" autocomplete="off" /><button>Send</button>
-</form>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<form id="id_form" action="login" method="get">
+    <label>Username</label>
+    <input type="text" id="username" name="username">
+    <label>Receiver</label>
+    <input type="text" id="receiver" name="receiver">
+    <input type="submit" value="submit">
+</form>
+<ul id="messages"></ul>
+<form id="input_form" action="">
+
+    <input id="m" autocomplete="off" /><button>Send</button>
+</form>
+
 <script>
     var socket = io();
-    $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
+
+    $.ajax({
+        type: "GET",
+        url: "/getUsername",
+        data: "json",
+        success: function(msg){
+            username = msg;
+            //alert(username);
+            socket.on(username, function(msg){
+                $('#messages').append($('<li>').text(msg));
+            });
+        }
+    });
+
+    //alert(username); //can not access username
+    //because ajax is async
+
+    $('#input_form').submit(function(){
+        socket.emit('ge chat', $('#m').val());
         $('#m').val('');
+
+        //alert(username);
+
         return false;
     });
-    socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-    });
+
+
 </script>
 </body>
 </html>
