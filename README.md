@@ -1,15 +1,16 @@
 #Zhisong Ge
 
 #TODO
-2. Set a user name
-5. Send messages to a specific user
-6. Receive messages from a specific user
+
 7. Save messages to database
 
 #Done
 1. Build a light chat web application with node.js
+2. 2. Set a user name
 3. Send message
 4. Receive massage
+5. 5. Send messages to a specific user
+6. Receive messages from a specific user
 
 #Test
 1. Server can get message from client
