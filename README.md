@@ -20,3 +20,6 @@
 1. Create a dev branch
 2. work on dev branch
 3. look for existing code online. Learn and modify the code
+4. add ajax
+5. add session
+6. add sender and receiver function
