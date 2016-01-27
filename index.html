@@ -12,22 +12,40 @@
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
     </style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 </head>
 <body>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<form id="id_form" action="login" method="get">
-    <label>Username</label>
-    <input type="text" id="username" name="username">
-    <label>Receiver</label>
-    <input type="text" id="receiver" name="receiver">
-    <input type="submit" value="submit">
-</form>
-<ul id="messages"></ul>
-<form id="input_form" action="">
+<div class="container" style="bottom: 0">
+    <form id="id_form" action="login" method="get">
+        <div class="row">
+            <label class="col-md-4">Username</label>
+            <input class="col-md-4" type="text" id="username" name="username">
+        </div>
+        <div class="row">
+            <label class="col-md-4">Receiver</label>
+            <input class="col-md-4" type="text" id="receiver" name="receiver">
+        </div>
+        <div class="row">
+            <input class="col-md-2" type="submit" value="submit">
+        </div>
+    </form>
+</div>
 
-    <input id="m" autocomplete="off" /><button>Send</button>
-</form>
+<div class="container">
+    <ul id="messages"></ul>
+</div>
+
+<div class="container bottom-aligned">
+    <form id="input_form" action="">
+        <div class="row">
+            <input class="col-xs-4" id="m" autocomplete="off" />
+            <button class="col-xs-4">Send</button>
+        </div>
+    </form>
+</div>
 
 <script>
     var socket = io();
@@ -52,11 +70,8 @@
         socket.emit('ge chat', $('#m').val());
         $('#m').val('');
 
-        //alert(username);
-
         return false;
     });
-
 
 </script>
 </body>
