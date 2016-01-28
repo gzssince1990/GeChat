@@ -43,7 +43,7 @@ io.on('connection', function(socket){
         }else if(!pairs[names[0]][names[1]]){
             pairs[names[0]][names[1]] = true;
 
-            socket.on(names[0], function(msg){
+            socket.on(names[0] + ' ' + names[1], function(msg){
                 io.emit(names[1], msg);
                 console.log(names[1] +': ' + msg);
             });
