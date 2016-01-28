@@ -18,6 +18,22 @@ app.get('/', function(req, res){
     if(req.session.username){
         console.log(req.session.username);
         console.log(req.session.receiver);
+
+        /**
+         * When refresh the web page, we will lose the socket.on listener for the tranceiver pair
+         * This condition will solve the problem, recreate a valid listener when we refresh the page
+         * while the session is not expired yet.
+         */
+        if(!pairs[req.session.username]){
+            console.log('Did not send message yet, so in session not in pairs');
+        }else if(!pairs[req.session.username][req.session.receiver]){
+            console.log('Sent msg to other people but not ' + req.session.receiver);
+        }else if(pairs[req.session.username][req.session.receiver] = 1){
+            pairs[req.session.username][req.session.receiver] = 0;
+            console.log('Reset the pair to 0, so we can recreate the socket.on listener');
+        }else {
+            console.log('This pair is already 0');
+        }
     }else {
         console.log('username undefined');
     }
@@ -68,14 +84,6 @@ app.get('/login', function(req, res){
     console.log(req.session.receiver + '\n');
 
     res.redirect('/');
-});
-
-app.get('/getUname', function(req, res){
-    res.send(req.session.username);
-});
-
-app.get('/getRname', function(req, res){
-    res.send(req.session.receiver);
 });
 
 app.get('/getnames', function(req, res){
