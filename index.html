@@ -50,15 +50,27 @@
 <script>
     var socket = io();
 
+
+
     $.ajax({
         type: "GET",
-        url: "/getUsername",
+        url: "/getnames",
         data: "json",
-        success: function(msg){
-            username = msg;
+        success: function(names){
+            var names = names.split(' ');
+
             //alert(username);
-            socket.on(username, function(msg){
+            socket.on(names[0], function(msg){
                 $('#messages').append($('<li>').text(msg));
+            });
+
+            $('#input_form').submit(function(){
+
+                socket.emit('names', names);
+                socket.emit(names[0] + ' ' + names[1], $('#m').val());
+                $('#m').val('');
+
+                return false;
             });
         }
     });
@@ -66,12 +78,7 @@
     //alert(username); //can not access username
     //because ajax is async
 
-    $('#input_form').submit(function(){
-        socket.emit('ge chat', $('#m').val());
-        $('#m').val('');
 
-        return false;
-    });
 
 </script>
 </body>
