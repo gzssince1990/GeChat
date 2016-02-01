@@ -83,6 +83,7 @@
             $('#input_form').submit(function(){
                 socket.emit('names', names);
                 socket.emit(names[0] + ' ' + names[1], $('#m').val());
+                $('#messages').append($('<li class="bg-default">').text(names[0] + ': ' +$('#m').val()));
                 $('#m').val('');
                 return false;
             });
