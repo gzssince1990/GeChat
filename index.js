@@ -52,7 +52,7 @@ io.on('connection', function(socket){
             pairs[names[0]][names[1]] = true;
 
             socket.on(names[0] + ' ' + names[1], function(msg){
-                io.emit(names[1], msg);
+                io.emit(names[1], names[0] + ': ' + msg);
                 console.log(names[1] +': ' + msg);
             });
 
@@ -60,12 +60,10 @@ io.on('connection', function(socket){
             pairs[names[0]][names[1]] = true;
 
             socket.on(names[0] + ' ' + names[1], function(msg){
-                io.emit(names[1], msg);
+                io.emit(names[1],names[0] + ': ' +  msg);
                 console.log(names[1] +': ' + msg);
             });
         }
-
-
 
         console.log(pairs);
         console.log('uname: ' + names[0]);
